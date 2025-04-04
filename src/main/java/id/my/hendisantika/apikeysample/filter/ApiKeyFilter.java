@@ -1,5 +1,7 @@
 package id.my.hendisantika.apikeysample.filter;
 
+import id.my.hendisantika.apikeysample.config.ApiKeyFilterConfig;
+import id.my.hendisantika.apikeysample.helper.ClientAuthenticationHelper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
