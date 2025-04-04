@@ -57,7 +57,15 @@ public class QuoteControllerIntegrationTest {
         mvc.perform(MockMvcRequestBuilders.get(Routes.QUOTES).headers(httpHeaders))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+    }
 
+    @Test
+    public void givenNoAPIKeyHeader_whenFamousQuotes_thenReturnUnauthorized() throws Exception {
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        mvc.perform(MockMvcRequestBuilders.get(Routes.QUOTES).headers(httpHeaders))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
     }
 
 }
