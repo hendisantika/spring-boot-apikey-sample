@@ -1,5 +1,7 @@
 package id.my.hendisantika.apikeysample.filter;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -20,4 +22,9 @@ public class ApiKeyFilter extends OncePerRequestFilter {
     private final ClientAuthenticationHelper authServiceHelper;
     private final ApiKeyFilterConfig config;
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        var path = request.getRequestURI();
+        return !path.startsWith(config.getPathPrefix());
+    }
 }
