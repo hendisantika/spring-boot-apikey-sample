@@ -1,5 +1,6 @@
 package id.my.hendisantika.apikeysample.helper;
 
+import id.my.hendisantika.apikeysample.repository.ClientCredentialRepository;
 import org.springframework.stereotype.Service;
 
 /**
