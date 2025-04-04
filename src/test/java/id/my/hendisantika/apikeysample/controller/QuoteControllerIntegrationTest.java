@@ -1,9 +1,17 @@
 package id.my.hendisantika.apikeysample.controller;
 
+import id.my.hendisantika.apikeysample.config.Routes;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,5 +31,19 @@ public class QuoteControllerIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
+    @Test
+    public void givenValidAPIKey_whenFamousQuotes_thenReturnSuccess() throws Exception {
+        String apiKey = "5c8d56a2-88b2-48a7-aec8-c9a8ac7af99a";
 
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Api-Key", apiKey);
+
+        mvc.perform(MockMvcRequestBuilders.get(Routes.QUOTES).headers(httpHeaders))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code", equalTo(200)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.success", equalTo(true)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", equalTo("Operation Successful")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.quote", notNullValue()));
+
+    }
 }
