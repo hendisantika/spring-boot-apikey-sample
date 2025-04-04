@@ -8,7 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -44,6 +47,17 @@ public class QuoteControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.success", equalTo(true)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message", equalTo("Operation Successful")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.quote", notNullValue()));
+    }
+
+    @Test
+    public void givenInvalidAPIKey_whenFamousQuotes_thenReturnUnauthorized() throws Exception {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Api-Key", UUID.randomUUID() + "100");
+
+        mvc.perform(MockMvcRequestBuilders.get(Routes.QUOTES).headers(httpHeaders))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
 
     }
+
 }
