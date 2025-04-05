@@ -38,7 +38,9 @@ public class WebSecurityConfig {
         //configure the security chain to authenticate all endpoints
         //except the /error
         http.authorizeHttpRequests(requests ->
-                requests.requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
+                requests
+                        .requestMatchers(new AntPathRequestMatcher("/h2-console", "/h2-console/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher(Routes.WEB_INDEX)).permitAll()
                         .anyRequest().authenticated()
         );
