@@ -3,7 +3,7 @@ package id.my.hendisantika.apikeysample.controller;
 import id.my.hendisantika.apikeysample.config.Routes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -38,7 +38,7 @@ public class IndexControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code", equalTo(200)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.success", equalTo(true)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message", equalTo("Welcome to SMATTME")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", equalTo("Welcome to Bandung")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.timestamp", notNullValue()));
 
     }
