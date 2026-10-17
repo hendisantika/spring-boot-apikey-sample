@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,9 +38,9 @@ public class WebSecurityConfig {
         //except the /error
         http.authorizeHttpRequests(requests ->
                 requests
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console", "/h2-console/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher(Routes.WEB_INDEX)).permitAll()
+                        .requestMatchers("/h2-console", "/h2-console/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers(Routes.WEB_INDEX).permitAll()
                         .anyRequest().authenticated()
         );
 
